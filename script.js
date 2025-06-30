@@ -51,9 +51,8 @@
   document.getElementById("sortDateButton").addEventListener("click", sortByDate);
 */
 
-const users = [];
-const filteredUsers = [];
-
+let users = [];
+let filteredUsers = [];
 
 const getUsers = async () => {
   try{
