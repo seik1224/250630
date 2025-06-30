@@ -98,9 +98,14 @@ const filterByRace = () => {
   renderUsers();
 }
 
-const searchByName = ()=>{
+const searchByName = () => {
   const searchValue = document.getElementById('searchInput').value;
   filteredUsers = users.filter((user)=>user.name.includes(searchValue));
+  renderUsers();
+}
+
+const sortByDate = () => {
+  filteredUsers.sort((a, b)=>b.date - a.date);
   renderUsers();
 }
 
@@ -110,5 +115,7 @@ document.getElementById('raceFilter')
 document.getElementById("searchInput")
 .addEventListener("input", searchByName);
 
+document.getElementById("sortDateButton")
+.addEventListener("click", sortByDate);
 
 getUsers();
