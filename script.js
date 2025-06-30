@@ -98,7 +98,17 @@ const filterByRace = () => {
   renderUsers();
 }
 
+const searchByName = ()=>{
+  const searchValue = document.getElementById('searchInput').value;
+  filteredUsers = users.filter((user)=>user.name.includes(searchValue));
+  renderUsers();
+}
+
 document.getElementById('raceFilter')
 .addEventListener('change', filterByRace);
+
+document.getElementById("searchInput")
+.addEventListener("input", searchByName);
+
 
 getUsers();
