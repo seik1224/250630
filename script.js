@@ -50,3 +50,26 @@
   2. 버튼을 클릭할 때마다 filteredUsers를 가입일 순으로 정렬하여 renderUsers함수를 호출하세요.
   document.getElementById("sortDateButton").addEventListener("click", sortByDate);
 */
+
+const users = [];
+const filteredUsers = [];
+
+
+const getUsers = async () => {
+  try{
+    const response = await fetch('https://raw.githubusercontent.com/seik1224/data-zelda/main/data.json')
+    // console.log(await response.json());
+    if(!response.ok){
+      throw new Error(`에러! ${response.status}`);
+    }
+    filteredUsers = await response.json();
+
+  } catch(err){
+    console.error(err);
+    document.querySelector('#userList').innerHTML =
+    `<tr><td colspan='5'>데이터 불러오기 실패</td></tr>`
+  }
+  
+}
+
+getUsers();
