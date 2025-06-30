@@ -61,8 +61,9 @@ const getUsers = async () => {
     if(!response.ok){
       throw new Error(`에러! ${response.status}`);
     }
-    filteredUsers = await response.json();
-
+    users = await response.json();
+    filteredUsers = [...users];
+    renderUsers();
   } catch(err){
     console.error(err);
     document.querySelector('#userList').innerHTML =
@@ -70,5 +71,34 @@ const getUsers = async () => {
   }
   
 }
+
+const renderUsers = () => {
+  const userList = document.querySelector('#userList');
+  userList.innerHTML = '';
+
+  filteredUsers.forEach((user, index)=>{
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><img src='${user.imgSrc}'/></td>
+      <td>${user.name}</td>
+      <td>${user.isMen ? '남자' : '여자'}</td>
+      <td>${user.kind}</td>
+      <td>${user.date}</td>
+    `;
+    userList.appendChild(row);
+  })
+}
+
+const filterByRace = () => {
+  const raceFilter = document.getElementById('raceFilter').value;
+  console.log(raceFilter);
+  filteredUsers = users.filter((user)=>{
+    return user.kind === raceFilter
+  });
+  renderUsers();
+}
+
+document.getElementById('raceFilter')
+.addEventListener('change', filterByRace);
 
 getUsers();
